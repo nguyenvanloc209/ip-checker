@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin thiết bị</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            padding: 30px;
+        }
+
+        .box {
+            max-width: 650px;
+            margin: auto;
+            background: #222;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .info {
+            padding: 12px;
+            margin: 8px 0;
+            background: #333;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>📱 Thông tin thiết bị</h1>
+
+    <div class="info" id="device"></div>
+    <div class="info" id="os"></div>
+    <div class="info" id="browser"></div>
+    <div class="info" id="screen"></div>
+    <div class="info" id="cpu"></div>
+    <div class="info" id="ram"></div>
+    <div class="info" id="language"></div>
+    <div class="info" id="timezone"></div>
+</div>
+
+<script>
+    const ua = navigator.userAgent;
+
+    // Thiết bị / hệ điều hành
+    let os = "Không xác định";
+    let device = "Máy tính";
+
+    if (/Android/i.test(ua)) {
+        os = "Android";
+        device = "Điện thoại/Tablet Android";
+    } else if (/iPhone/i.test(ua)) {
+        os = "iOS";
+        device = "iPhone";
+    } else if (/iPad/i.test(ua)) {
+        os = "iPadOS";
+        device = "iPad";
+    } else if (/Windows/i.test(ua)) {
+        os = "Windows";
+    } else if (/Mac OS X/i.test(ua)) {
+        os = "macOS";
+    } else if (/Linux/i.test(ua)) {
+        os = "Linux";
+    }
+
+    // Trình duyệt
+    let browser = "Không xác định";
+
+    if (/Edg/i.test(ua)) {
+        browser = "Microsoft Edge";
+    } else if (/Chrome/i.test(ua)) {
+        browser = "Google Chrome";
+    } else if (/Firefox/i.test(ua)) {
+        browser = "Mozilla Firefox";
+    } else if (/Safari/i.test(ua)) {
+        browser = "Safari";
+    }
+
+    // RAM: trình duyệt có thể không cung cấp thông tin này
+    let ram = "Không được trình duyệt cung cấp";
+
+    if (navigator.deviceMemory) {
+        ram = navigator.deviceMemory + " GB (ước tính)";
+    }
+
+    document.getElementById("device").textContent =
+        "📱 Thiết bị: " + device;
+
+    document.getElementById("os").textContent =
+        "💻 Hệ điều hành: " + os;
+
+    document.getElementById("browser").textContent =
+        "🌐 Trình duyệt: " + browser;
+
+    document.getElementById("screen").textContent =
+        "🖥️ Màn hình: " +
+        screen.width + " × " + screen.height;
+
+    document.getElementById("cpu").textContent =
+        "⚙️ CPU logic: " +
+        (navigator.hardwareConcurrency || "Không rõ") + " lõi";
+
+    document.getElementById("ram").textContent =
+        "🧠 RAM: " + ram;
+
+    document.getElementById("language").textContent =
+        "🌎 Ngôn ngữ: " + navigator.language;
+
+    document.getElementById("timezone").textContent =
+        "🕒 Múi giờ: " +
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
+</script>
+
+</body>
+</html>
